@@ -1,0 +1,71 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Content.Master.cs" Inherits="StoreFront.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> StoreFront Content Page</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <style>
+       
+      form1{
+          align-content: center;
+      }
+      page-header{
+          text-align: center;
+      }
+       .logoColor{
+            color: #3366cc;
+        }
+   
+    </style>
+</head>
+<body>
+ <div class="container body-content">
+    <form id = "form1" runat="server">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    Store Front </div>
+             <div class="navbar-collapse collapse">
+        
+            <ul class ="nav navbar-nav">
+                <li><a runat ="server" href="~/Default.aspx">Home Page</a></li>
+                <li><a runat="server" href="~/CustomerAdmin.aspx">Customer Admin</a></li>
+                <li><a  runat ="server" href ="~/ProductsAdmin.aspx">Product Admin</a></li>
+            </ul>
+                </div>
+                </div>
+            </div>
+       
+        <div>
+            <div class="page-header">
+                 <h1><i class = "glyphicon glyphicon-lock logoColor"></i> StoreFront</h1>
+                 </div>
+            <div style ="width: 750px; float:left;">
+                <asp:ContentPlaceHolder ID ="cpMainContent"
+                    runat="server"></asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <div>
+            <div style ="width: 750px; float:left;">
+                <asp:ContentPlaceHolder ID ="cpAddContent" 
+                    runat ="server"></asp:ContentPlaceHolder>
+            </div>
+              <footer>
+                <p>&copy; <%: DateTime.Now.Year %> StoreFront Application</p>
+          </footer>
+        </div>
+        
+    </form>
+     
+</div>
+</body>
+</html>
