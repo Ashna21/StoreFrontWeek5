@@ -38,19 +38,22 @@ namespace StoreFront
              command.ExecuteReader();
              MyConnection.Close();
          */
-            string UserID = Request.QueryString[0];
+            
+
             string MyConnectionString = ConfigurationManager.ConnectionStrings["StoreFrontConnectionString1"].ConnectionString;
             using (SqlConnection myConnection = new SqlConnection(MyConnectionString))
             {
                 using(SqlCommand command = new SqlCommand("spDeleteUser", myConnection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add("@UserID", SqlDbType.VarChar).Value = UserID;
+                    command.Parameters.Add("@UserID", SqlDbType.VarChar).Value = DetailsView1.SelectedValue;
 
                     myConnection.Open();
                     command.ExecuteNonQuery();
                 }
             }
+       
         }
     }
+
 }

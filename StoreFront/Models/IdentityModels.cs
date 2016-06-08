@@ -38,6 +38,8 @@ namespace StoreFront.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<StoreFront.Models.CustomerBaseViewModel> CustomerBaseViewModels { get; set; }
     }
 }
 

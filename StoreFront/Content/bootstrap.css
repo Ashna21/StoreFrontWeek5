@@ -36,6 +36,9 @@ summary {
   display: block;
 }
 
+.navbar-default{
+    background-color: #fff;
+}
 audio,
 canvas,
 video {

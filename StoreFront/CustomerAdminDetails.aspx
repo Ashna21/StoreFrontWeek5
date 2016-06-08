@@ -28,7 +28,8 @@
                 <asp:CheckBoxField DataField="IsShipping" HeaderText="IsShipping" SortExpression="IsShipping" />
             </Columns>
         </asp:GridView>
-        <asp:Button ID="ButtonDel" runat="server" OnClick="Button1_Click1" Text="Delete User" />
+        <asp:Button ID="ButtonDel" runat="server" OnClick="Button1_Click1"  Text="Delete User" />
+       
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:StoreFrontConnectionString1 %>" SelectCommand="spGetUserAddreses" SelectCommandType="StoredProcedure">
             <SelectParameters>
                 <asp:QueryStringParameter DefaultValue="0" Name="UserID" QueryStringField="UserID" Type="Int32" />
