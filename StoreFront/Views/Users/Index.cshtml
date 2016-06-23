@@ -1,0 +1,30 @@
+﻿@model StoreFront.Models.User
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<h2>LogIn</h2>
+
+@using (Html.BeginForm("Login", "Users", FormMethod.Post, new { @class = "form" }))
+{
+    
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserName)
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+    </div>
+    <div>
+        @Html.LabelFor(m => m.EmailAddress)
+        @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control" })
+    </div>
+    
+    <p></p>
+    <p></p>
+    <input type="submit" class="btn btn-primary" value="LogIn" />
+}
+<p></p>
+<p></p>
+@Html.ActionLink("Sign Up!", "Create", "Users", null, null)
+

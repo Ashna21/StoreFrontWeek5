@@ -1,0 +1,23 @@
+﻿@model IEnumerable<StoreFront.Models.Product>
+@{
+    ViewBag.Title = "Welcome";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<h2>Welcome @Session["name"]</h2>
+
+<form method="get" action="@Url.Action("Welcome/")
+      data-sf-ajax = "true" data-sf-target="#ProductsList">
+
+    <input type="search" name="searchTerm" data-sf-autocomplete="@Url.Action("AutoComplete/")" />
+    <input type="submit" value="Search " />
+
+</form>
+
+@*@using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "ProductsList" }))
+{
+    <input type="search" name="searchTerm" />
+    <input type="submit" value="Search " />
+}*@
+
+@Html.Partial("ProductsList", Model)

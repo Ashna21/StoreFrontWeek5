@@ -1,0 +1,51 @@
+﻿
+@model IEnumerable<StoreFront.Models.Product>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model=>model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model=>model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model=>model.Picture)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modeItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Picture)
+            </td>
+            <td>
+                @Html.ActionLink("Add to Cart", "AddToCart", "ShoppingCarts", new { productId = item.ProductID, userId = Session["id"] }, null)
+            </td>
+            
+        </tr>
+    }
+</table>
+
+

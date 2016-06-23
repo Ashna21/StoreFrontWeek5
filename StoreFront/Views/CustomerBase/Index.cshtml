@@ -1,0 +1,39 @@
+﻿@using StoreFront.Models;
+@model IEnumerable<CustomerBase>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>User Name</th>
+        <th>Email</th>
+    </tr>
+    @foreach (CustomerBase c in Model)
+    {
+        <tr>
+            <td>
+                @c.UserId
+            </td>
+            <td>
+                @c.FirstName
+            </td>
+            <td>
+                @c.LastName
+            </td>
+            <td>
+                @c.UserName
+            </td>
+            <td>
+                @c.EmailAddress
+            </td>
+        </tr>
+    }
+</table>

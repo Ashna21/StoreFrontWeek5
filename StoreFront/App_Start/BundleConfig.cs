@@ -12,6 +12,16 @@ namespace StoreFront
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkID=303951
         public static void RegisterBundles(BundleCollection bundles)
         {
+            //StoreFront ajax and jquery bundles
+            bundles.Add(new ScriptBundle("~/bundles/sf").Include(
+                    "~/Scripts/jquery-{version}.js",
+                    "~/Scripts/jquery-ui-{version}.js",
+                    "~/Scripts/jquery-unobtrusive*",
+                    "~/Scripts/jquery.validate*",
+                    "~/Scripts/jquery-1.10.2.js",
+                    "~/Scripts/jquery-ui-1.10.3/jquery-ui.js",
+                    "~/Scripts/sf.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/WebFormsJs").Include(
                             "~/Scripts/WebForms/WebForms.js",
                             "~/Scripts/WebForms/WebUIValidation.js",
