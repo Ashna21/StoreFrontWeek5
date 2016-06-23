@@ -34,7 +34,7 @@ namespace StoreFront.Controllers
    
                 if (query.IsAdmin == true)
                 {
-                    return RedirectToRoute("~/Default.aspx");
+                    return Redirect("~/Default.aspx");
                 }
                 else
                 {
