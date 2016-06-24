@@ -105,23 +105,26 @@ namespace StoreFront.Controllers
            
            
         }
-
+     
         public ActionResult Delete(int productId, int cartId)
         {
             ShoppingCartProduct cartProduct = getCartProductById(cartId, productId);
             db.ShoppingCartProducts.Remove(cartProduct);
             db.SaveChanges();
            
-            return RedirectToAction("CartView", new { _cartId = cartId });
+            return RedirectToAction("CartView", new {cartId });
         }
 
+      
         public ActionResult UpdateQuantity(int productId, int cartId, int quant)
         {
             ShoppingCartProduct product = getCartProductById(cartId, productId);
             product.Quantity = quant;
+            product.Price = product.Price * product.Quantity;
             db.SaveChanges();
 
-            return RedirectToAction("CartView", new { _cartId = cartId });
+           return RedirectToAction("CartView", new { cartId });
+
         }
 #endregion
 
