@@ -3,15 +3,17 @@
     ViewBag.Title = "CartView";
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
-
-<head>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript" language="javascript">
-    $('.count').on('blur', function () {
-        $('.update').attr('src', '@Url.Action("UpdateQuantity","ShoppingCarts", new{ text = "----"})'.replace("---"),$('.count').val() + '?productId=' + $('.productId').value + '?cartId=' + $('.cartId').value + '?quant=' + $('.quant').value)
+    $(function(){
+        $('#update').click(function () {
+
+            var num = $('#num').val();
+            this.href = this.href + '?quant=' + encodeURIComponent(num);
+            alert('hi')
+        });
     });
 </script>
-</head>
 
 
 
@@ -29,7 +31,7 @@
 {
     <tr id="#row-@item.ProductID">
         <td> @Html.DisplayFor(modelItem => item.ProductName)</td>
-        <td> @Html.TextBoxFor(modelItem => item.Quantity, new { @class = "quant" }) @Html.ActionLink("update", "UpdateQuantity", "ShoppingCarts",  new { productId = item.ProductID, cartId = item.ShoppingCartID, quant = item.Quantity }, null)</td>
+        <td> @Html.TextBoxFor(modelItem => item.Quantity, new { id = "num" }) @Html.ActionLink("update", "UpdateQuantity", "ShoppingCarts",  new { productId = item.ProductID, cartId = item.ShoppingCartID }, new { id = "update"})</td>
         <td>$@Html.DisplayFor(modelItem => item.Price)</td>
         <td> @Html.ActionLink("x", "Delete", "ShoppingCarts", new { productId = item.ProductID, cartId = item.ShoppingCartID }, null) </td>
     </tr>
