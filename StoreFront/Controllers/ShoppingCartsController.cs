@@ -88,19 +88,21 @@ namespace StoreFront.Controllers
         {
             var _cartId = cartId ?? default(int);
             List<ShoppingCartProduct> cart = getCartProduct(_cartId);
-            if (cart != null)
+            if (cartId != null)
             {
                 decimal price = (from p in db.ShoppingCartProducts where p.ShoppingCartID == cartId select p.Price).Sum();
                 ViewBag.price = price;
                 Session["quantity"] = getQuantity(_cartId);
+                Session["EmptyCart"] = " ";
                 return View(cart);
             }
-            else
+            else 
             {
                 Session["quantity"] = 0;
                 Session["EmptyCart"] = "Your Cart is Empty";
                 return View(cart);
             }
+           
            
         }
 
