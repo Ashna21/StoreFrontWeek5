@@ -22,7 +22,7 @@ namespace StoreFront.Controllers
             {
                 //check if the user has a cart
                 var hasCart = hasShoppingCart(userId);
-                //Create a new cart for the user, if the user does not have a cart
+                //Create a new cart and a new order for the user, if the user does not have a cart
                 if (hasCart == false)
                 {
                     var userCart = new ShoppingCart();

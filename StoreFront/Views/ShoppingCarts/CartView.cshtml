@@ -15,8 +15,6 @@
     });
 </script>
 
-
-
 <h2>@Session["name"]'s Shopping Cart</h2>
 <h2>@Session["EmptyCart"]</h2>
 
@@ -40,11 +38,15 @@
 
 
 <table class="table">
-    <tr>
+   <tr>
         <th>
             <p>Your Total Is :  @ViewBag.Price</p>
         </th>
+        <th>
+            @Html.ActionLink("place order", "addOrder", "Orders", new { cartId = Session["cartId"] }, null)
+        </th>
     </tr>
+
 </table>
 
 

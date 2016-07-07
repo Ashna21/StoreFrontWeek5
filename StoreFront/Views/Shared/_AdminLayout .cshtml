@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - StoreFront</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    
+</head>
+<body>
+    <h1>Admin Page</h1>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a runat="server" href="~/">StoreFront  <i class="glyphicon glyphicon-lock"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+                    <div class="navbar navbar-inverse navbar-fixed">
+                        <div class="container-fluid">
+
+                            <div class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav">
+                                    <li><a runat="server" href="~/">Home</a></li>
+                                    <li><a runat="server" href="~/Products/Index">Search <i class="glyphicon glyphicon-search"></i></a></li>
+                                </ul>
+                                <asp:LoginView runat="server" ViewStateMode="Disabled">
+                                    <AnonymousTemplate>
+                                        <ul class="nav navbar-nav navbar-right">
+                                            <li><a runat="server" href="~/Users/Edit">Hi @Session["name"]!</a></li>
+                                            <li>@Html.ActionLink("Profile" , "Edit", "Users", new {id = Session["id"]}, null)</li>
+                                            <li><a runat="server" href=@Url.Action("CartView", "ShoppingCarts", new {cartId = Session["CartId"] })><i class="glyphicon glyphicon-shopping-cart"></i> @Session["quantity"] </a></li>
+                                           
+                                        </ul>
+                                    </AnonymousTemplate>
+                                    @*<LoggedInTemplate>
+                                        <ul class="nav navbar-nav navbar-right">
+                                            <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                            <li>
+                                                <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                            </li>
+                                        </ul>
+                                    </LoggedInTemplate>*@
+                                </asp:LoginView>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container body-content">
+                        @RenderBody()
+                        <hr />
+                        <footer>
+                            <p>&copy; @DateTime.Now.Year - StoreFront Application</p>
+                        </footer>
+                    </div>
+
+                    @Scripts.Render("~/bundles/sf")
+                    @Scripts.Render("~/bundles/bootstrap")
+                    @RenderSection("scripts", required: false)
+</body>
+</html>

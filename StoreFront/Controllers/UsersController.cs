@@ -31,6 +31,7 @@ namespace StoreFront.Controllers
                 string usr = user.UserName;
                 Session["name"] = usr;
                 Session["id"] = query.UserID;
+                Session["admin"] = query.IsAdmin;
    
                 if (query.IsAdmin == true)
                 {
