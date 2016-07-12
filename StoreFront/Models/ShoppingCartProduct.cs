@@ -17,13 +17,13 @@ namespace StoreFront.Models
         public int ShoppingCartProductID { get; set; }
         public int ShoppingCartID { get; set; }
         public int ProductID { get; set; }
+        public string ProductName { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public System.DateTime DateCreated { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> DateModified { get; set; }
         public string ModifiedBy { get; set; }
-        public string ProductName { get; set; }
     
         public virtual Product Product { get; set; }
         public virtual ShoppingCart ShoppingCart { get; set; }

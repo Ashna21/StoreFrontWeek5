@@ -1,11 +1,9 @@
-﻿@model IEnumerable<StoreFront.Data.Order1>
-@{ 
+﻿﻿@model IEnumerable<SFData.data.Order>
+@{
     ViewBag.Title = "Index";
 
 }
-
 <h2> Order Details </h2>
-
 <table class="table">
     <tr>
         <th>
@@ -27,7 +25,6 @@
             @Html.DisplayNameFor(model => model.StatusID)
         </th>
     </tr>
-
     @foreach (var order in Model)
     {
         <tr>
@@ -50,8 +47,9 @@
                 @Html.DisplayFor(modelItem => order.StatusID)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Details", "Orders", new { orderId = order.OrderID }, null)
+                @Html.ActionLink("Edit", "OrderDetails", "Orders", new { orderId = order.OrderID }, null)
             </td>
+
         </tr>
     }
 </table>

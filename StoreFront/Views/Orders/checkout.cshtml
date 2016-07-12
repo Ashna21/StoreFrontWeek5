@@ -1,0 +1,9 @@
+﻿@model SFData.data.Address
+@{
+    ViewBag.Title = "checkout";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<h2>Welcome to Checkout</h2>
+<p>Following are your address details</p>
+@{Html.RenderAction("AddressDetails", "Orders", new { AddressId = Model.AddressID });}

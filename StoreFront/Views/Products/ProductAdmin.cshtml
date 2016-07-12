@@ -1,0 +1,30 @@
+﻿@model SFData.data.Product
+@{
+    ViewBag.Title = "ProductAdmin";
+}
+
+<h2>Product Admin</h2>
+
+@using (Html.BeginForm("updateProduct", "Products", new {oldProductId = Model.ProductID}, FormMethod.Post, new { enctype="multipart/form-data", @class = "form" }))
+{ 
+    <div class="form-group">
+        @Html.LabelFor(m=>m.ProductName)
+        @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Price)
+        @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
+    </div>
+    
+   <div class="form-group">
+     <img src= "@Url.Content(@Model.ImageFile)" alt="no image" style="height:100px; width:100px;" />
+     <input type="file" name="file" id="file"/>
+    </div> 
+    <input type="submit" class="btn btn-primary" value="update product" />
+}

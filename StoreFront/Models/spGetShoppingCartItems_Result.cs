@@ -16,6 +16,7 @@ namespace StoreFront.Models
         public int ShoppingCartProductID { get; set; }
         public int ShoppingCartID { get; set; }
         public int ProductID { get; set; }
+        public string ProductName { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public System.DateTime DateCreated { get; set; }

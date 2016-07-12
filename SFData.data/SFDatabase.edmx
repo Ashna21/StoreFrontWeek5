@@ -34,6 +34,13 @@
           <Property Name="DateModified" Type="datetime" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="blogs">
+          <Key>
+            <PropertyRef Name="BlogID" />
+          </Key>
+          <Property Name="BlogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="CustomerBaseViewModels">
           <Key>
             <PropertyRef Name="UserID" />
@@ -62,7 +69,7 @@
           <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="AddressID" Type="int" Nullable="false" />
-          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" />
           <Property Name="Total" Type="money" Nullable="false" />
           <Property Name="StatusID" Type="int" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
@@ -80,7 +87,7 @@
           <Property Name="IsPublished" Type="bit" Nullable="false" />
           <Property Name="Quantity" Type="int" />
           <Property Name="Price" Type="money" Nullable="false" />
-          <Property Name="ImageFile" Type="varchar" MaxLength="500" />
+          <Property Name="ImageFile" Type="nvarchar(max)" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
           <Property Name="DateModified" Type="datetime" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
@@ -264,12 +271,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="spAddPicture" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spAddProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="productName" Type="varchar" Mode="In" />
           <Parameter Name="Description" Type="varchar" Mode="In" />
           <Parameter Name="IsPublished" Type="bit" Mode="In" />
           <Parameter Name="Price" Type="money" Mode="In" />
         </Function>
+        <Function Name="spAddProductName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spAddShoppingCartItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ProductID" Type="int" Mode="In" />
           <Parameter Name="UserID" Type="int" Mode="In" />
@@ -326,6 +335,7 @@
         <EntityContainer Name="StoreFrontModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="blogs" EntityType="Self.blogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerBaseViewModels" EntityType="Self.CustomerBaseViewModels" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderProduct" EntityType="Self.OrderProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
@@ -412,6 +422,13 @@
           <NavigationProperty Name="User" Relationship="Self.FK_Address_User" FromRole="Address" ToRole="Users" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Address" FromRole="Address" ToRole="Orders" />
         </EntityType>
+        <EntityType Name="blog">
+          <Key>
+            <PropertyRef Name="BlogID" />
+          </Key>
+          <Property Name="BlogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="CustomerBaseViewModel">
           <Key>
             <PropertyRef Name="UserID" />
@@ -442,7 +459,7 @@
           <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="AddressID" Type="Int32" Nullable="false" />
-          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
           <Property Name="Total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="StatusID" Type="Int32" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
@@ -464,7 +481,7 @@
           <Property Name="IsPublished" Type="Boolean" Nullable="false" />
           <Property Name="Quantity" Type="Int32" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="ImageFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ImageFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DateModified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -493,6 +510,7 @@
           <Property Name="ShoppingCartProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ShoppingCartID" Type="Int32" Nullable="false" />
           <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
@@ -501,7 +519,6 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ShoppingCartProduct_Product" FromRole="ShoppingCartProduct" ToRole="Product" />
           <NavigationProperty Name="ShoppingCart" Relationship="Self.FK_ShoppingCartProduct_ShoppingCart" FromRole="ShoppingCartProduct" ToRole="ShoppingCart" />
-          <Property Name="ProductName" MaxLength="200" FixedLength="false" Unicode="true" Type="String" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -525,7 +542,10 @@
             <PropertyRef Name="UserID" />
           </Key>
           <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="EmailAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsAdmin" Type="Boolean" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
@@ -535,8 +555,6 @@
           <NavigationProperty Name="Addresses" Relationship="Self.FK_Address_User" FromRole="Users" ToRole="Address" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_User" FromRole="Users" ToRole="Orders" />
           <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK_ShoppingCart_User" FromRole="Users" ToRole="ShoppingCart" />
-          <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Address_State">
           <End Role="State" Type="Self.State" Multiplicity="1" />
@@ -661,6 +679,7 @@
         <EntityContainer Name="StoreFrontEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="Addresses" EntityType="Self.Address" />
+          <EntitySet Name="blogs" EntityType="Self.blog" />
           <EntitySet Name="CustomerBaseViewModels" EntityType="Self.CustomerBaseViewModel" />
           <EntitySet Name="OrderProducts" EntityType="Self.OrderProduct" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
@@ -710,12 +729,14 @@
             <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
             <End Role="ShoppingCartProduct" EntitySet="ShoppingCartProducts" />
           </AssociationSet>
+          <FunctionImport Name="spAddPicture" />
           <FunctionImport Name="spAddProduct">
             <Parameter Name="productName" Mode="In" Type="String" />
             <Parameter Name="Description" Mode="In" Type="String" />
             <Parameter Name="IsPublished" Mode="In" Type="Boolean" />
             <Parameter Name="Price" Mode="In" Type="Decimal" />
           </FunctionImport>
+          <FunctionImport Name="spAddProductName" />
           <FunctionImport Name="spAddShoppingCartItem" ReturnType="Collection(StoreFrontModel.spAddShoppingCartItem_Result)">
             <Parameter Name="ProductID" Mode="In" Type="Int32" />
             <Parameter Name="UserID" Mode="In" Type="Int32" />
@@ -813,6 +834,7 @@
           <Property Type="Int32" Name="ShoppingCartProductID" Nullable="false" />
           <Property Type="Int32" Name="ShoppingCartID" Nullable="false" />
           <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="200" />
           <Property Type="Int32" Name="Quantity" Nullable="false" />
           <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" />
           <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="23" />
@@ -869,6 +891,14 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="DateModified" ColumnName="DateModified" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="blogs">
+            <EntityTypeMapping TypeName="StoreFrontModel.blog">
+              <MappingFragment StoreEntitySet="blogs">
+                <ScalarProperty Name="BlogID" ColumnName="BlogID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -944,10 +974,10 @@
           <EntitySetMapping Name="ShoppingCartProducts">
             <EntityTypeMapping TypeName="StoreFrontModel.ShoppingCartProduct">
               <MappingFragment StoreEntitySet="ShoppingCartProduct">
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="ShoppingCartProductID" ColumnName="ShoppingCartProductID" />
                 <ScalarProperty Name="ShoppingCartID" ColumnName="ShoppingCartID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
@@ -977,10 +1007,11 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="StoreFrontModel.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
                 <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
@@ -990,7 +1021,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spAddPicture" FunctionName="StoreFrontModel.Store.spAddPicture" />
           <FunctionImportMapping FunctionImportName="spAddProduct" FunctionName="StoreFrontModel.Store.spAddProduct" />
+          <FunctionImportMapping FunctionImportName="spAddProductName" FunctionName="StoreFrontModel.Store.spAddProductName" />
           <FunctionImportMapping FunctionImportName="spAddShoppingCartItem" FunctionName="StoreFrontModel.Store.spAddShoppingCartItem">
             <ResultMapping>
               <ComplexTypeMapping TypeName="StoreFrontModel.spAddShoppingCartItem_Result">
@@ -1069,6 +1102,7 @@
                 <ScalarProperty Name="ShoppingCartProductID" ColumnName="ShoppingCartProductID" />
                 <ScalarProperty Name="ShoppingCartID" ColumnName="ShoppingCartID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />

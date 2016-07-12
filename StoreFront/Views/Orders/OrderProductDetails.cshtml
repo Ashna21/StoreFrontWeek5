@@ -1,0 +1,27 @@
+﻿@model SFData.data.ShoppingCartProduct
+<h2>Product Details</h2>
+
+<table class="table">
+    <tr>
+        <th> @Html.DisplayNameFor(model => model.ProductName)</th>
+        <th> @Html.DisplayNameFor(model => model.Quantity)</th>
+        <th> @Html.DisplayNameFor(model => model.Price)</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr id="#row-@item.ProductID">
+            <td> @Html.DisplayFor(modelItem => item.ProductName)</td>
+            <td id="num"> @Html.TextBoxFor(modelItem => item.Quantity, new { id = "num" }) <a id="update" href="#">update</a></td>
+            <td>$ @Html.DisplayFor(modelItem => item.Price)</td>
+            <td> @Html.ActionLink("x", "Delete", "ShoppingCarts", new { productId = item.ProductID, cartId = item.ShoppingCartID }, null) </td>
+        </tr>
+    }
+</table>
+
+<table class="table">
+    <tr>
+        <th>
+            <p>Order Total Is :  @ViewBag.Price</p>
+        </th>
+    </tr>
+</table>

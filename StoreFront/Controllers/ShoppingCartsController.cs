@@ -12,7 +12,7 @@ namespace StoreFront.Controllers
 {
     public class ShoppingCartsController : Controller
     {
-        private StoreFrontEntities1 db = new StoreFrontEntities1();
+        private StoreFrontEntities db = new StoreFrontEntities();
 #region Actions
 
         //Add to cart

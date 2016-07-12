@@ -23,7 +23,7 @@ namespace StoreFront.Models
         public int OrderID { get; set; }
         public int UserID { get; set; }
         public int AddressID { get; set; }
-        public System.DateTime OrderDate { get; set; }
+        public Nullable<System.DateTime> OrderDate { get; set; }
         public decimal Total { get; set; }
         public int StatusID { get; set; }
         public System.DateTime DateCreated { get; set; }

@@ -1,0 +1,52 @@
+﻿@model SFData.data.Order
+
+@{ 
+    ViewBag.Title = "details";
+}
+
+<h2>Order Details</h2>
+
+<h4>Order #@Session["OrderID"]</h4>
+
+<div id="shTabs">
+    <ul>
+        <li><a href="#general">General</a></li>
+        <li><a href="#Address">Address</a></li>
+        <li><a href="#Products">Products</a></li>
+    </ul>
+    <div id="general">
+        @{Html.RenderAction("GeneralOrderDetails", "Orders", new { orderId = Model.OrderID });}
+    </div>
+    <div id="Address">
+        @{Html.RenderAction("AddressDetails", "Orders", new { AddressId = Model.AddressID });}
+    </div>
+    <div id="Products">
+        @*@{Html.RenderAction("OrderProductDetails", "Orders", new { cartId = Model.OrderID });}*@
+    </div>
+</div>
+
+@section script{
+    <script type="text/javascript">
+        $("document").ready(function(){
+            $("#shTabs").tabs({
+                event: "click",
+                show: "fadeIn",
+                hide: "fadeOut",
+                collapsible: true,
+                heightStyle: "auto"
+                
+            });
+        
+});
+</script>
+}
+
+
+
+
+
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+

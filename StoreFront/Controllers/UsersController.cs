@@ -9,12 +9,13 @@ using System.Web.Mvc;
 using StoreFront.Models;
 using System.Web.Security;
 
+
 namespace StoreFront.Controllers
 {
     public class UsersController : Controller
     {
 
-        private StoreFrontEntities1 db = new StoreFrontEntities1();
+        private StoreFrontEntities db = new StoreFrontEntities();
 
         // Login Action
         public ActionResult Index()

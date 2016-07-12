@@ -20,7 +20,8 @@ namespace StoreFront
                     "~/Scripts/jquery.validate*",
                     "~/Scripts/jquery-1.10.2.js",
                     "~/Scripts/jquery-ui-1.10.3/jquery-ui.js",
-                    "~/Scripts/sf.js"));
+                    "~/Scripts/sf.js",
+                    "~/Scipts/jquery-ui.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/WebFormsJs").Include(
                             "~/Scripts/WebForms/WebForms.js",

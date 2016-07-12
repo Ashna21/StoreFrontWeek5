@@ -1,12 +1,31 @@
-﻿@model StoreFront.Models.Product
+﻿@model IEnumerable<SFData.data.Product>
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
+<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+        </tr>
 
-<h2>Search Our Products</h2>
-@using (Html.BeginForm("Details", "Products", FormMethod.Get))
-{
-    @Html.TextBox("search")<input type="submit" name="submit" value="search"/>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditProduct", "Products", new { productId = item.ProductID }, null)
+                </td>
+            </tr>
+
+        }
+    </table>

@@ -15,10 +15,10 @@ namespace StoreFront.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class StoreFrontEntities1 : DbContext
+    public partial class StoreFrontEntities : DbContext
     {
-        public StoreFrontEntities1()
-            : base("name=StoreFrontEntities1")
+        public StoreFrontEntities()
+            : base("name=StoreFrontEntities")
         {
         }
     
@@ -29,6 +29,7 @@ namespace StoreFront.Models
     
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<blog> blogs { get; set; }
         public virtual DbSet<CustomerBaseViewModel> CustomerBaseViewModels { get; set; }
         public virtual DbSet<OrderProduct> OrderProducts { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
@@ -38,6 +39,11 @@ namespace StoreFront.Models
         public virtual DbSet<State> States { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<User> Users { get; set; }
+    
+        public virtual int spAddPicture()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spAddPicture");
+        }
     
         public virtual int spAddProduct(string productName, string description, Nullable<bool> isPublished, Nullable<decimal> price)
         {
@@ -58,6 +64,11 @@ namespace StoreFront.Models
                 new ObjectParameter("Price", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spAddProduct", productNameParameter, descriptionParameter, isPublishedParameter, priceParameter);
+        }
+    
+        public virtual int spAddProductName()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spAddProductName");
         }
     
         public virtual ObjectResult<spAddShoppingCartItem_Result> spAddShoppingCartItem(Nullable<int> productID, Nullable<int> userID)

@@ -1,0 +1,69 @@
+﻿@model SFData.data.Address
+
+@{ 
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_Layout.cshtml";
+}
+
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model=>model.AddressID)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model=>model.AddressID)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.UserID)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.UserID)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Address1)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Address1)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Address2)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Address2)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Address3)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Address3)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.City)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.City)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.StateID)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.StateID)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.ZipCode)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.ZipCode)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.IsBilling)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.IsBilling)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.IsShipping)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.IsShipping)
+    </dd>
+
+</dl>
