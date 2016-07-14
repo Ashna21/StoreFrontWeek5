@@ -45,6 +45,13 @@ namespace SFData.data
             db.SaveChanges();
 
         }
+        //updates the address to shipping address in checkout
+        public void setShippingAddress(int addressId)
+        {
+            Address _address = getAddressWithAddressId(addressId);
+            _address.IsShipping = true;
+            db.SaveChanges();
+        }
         //Adds an address
         public void AddAddress(Address address, int cartId)
         {
@@ -87,7 +94,22 @@ namespace SFData.data
             return total;
         }
 
-        //gets the address of a user by their addressId
+        //get userId from addressId
+        public int getUserIdByAddressId(int addressId)
+        {
+            int userId = (from c in db.Addresses where c.AddressID == addressId select c.UserID).FirstOrDefault();
+            return userId;
+        }
+
+        //gets all the addresses associated to a user
+        public List<Address> getAllAddressById(int addressId)
+        {
+            int userId = getUserIdByAddressId(addressId);
+            List<Address> address = (from c in db.Addresses where c.UserID == userId select c).ToList();
+            return address;
+        }
+
+        //gets the address by addressId
         public Address getAddressById(int addressId)
         {
             Address address = (from c in db.Addresses where c.AddressID == addressId select c).FirstOrDefault();
@@ -101,6 +123,34 @@ namespace SFData.data
             int addressId = getAddressId(userId);
             Address address = getAddressById(addressId);
             return address;
+        }
+
+        //gets the addressId from cartId
+        public int getAddressIdByCartId(int cartId)
+        {
+            int userId = (from c in db.ShoppingCarts where c.ShoppingCartID == cartId select c.UserID).FirstOrDefault();
+            int addressId = getAddressId(userId);
+            return addressId;
+        }
+        
+        //gets one address by addressId
+        public Address getAddressWithAddressId(int addressId)
+        {
+            Address address = (from c in db.Addresses where c.AddressID == addressId select c).FirstOrDefault();
+            return address;
+        }
+        //gets the products in the cart
+        public List<ShoppingCartProduct> getCartProduct(int cartId)
+        {
+            var cartProduct = (from p in db.ShoppingCartProducts where p.ShoppingCartID == cartId select p).ToList();
+            return cartProduct;
+        }
+        //gets the cartId
+        public int getCartId(int orderId)
+        {
+            int userId = (from p in db.Orders where p.OrderID == orderId select p.UserID).FirstOrDefault();
+            int cartId = (from p in db.ShoppingCarts where p.UserID == userId select p.ShoppingCartID).FirstOrDefault();
+            return cartId;
         }
         #endregion
 

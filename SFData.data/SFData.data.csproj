@@ -58,6 +58,7 @@
     <Compile Include="blog.cs">
       <DependentUpon>SFDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="CartsRespository.cs" />
     <Compile Include="CustomerBaseViewModel.cs">
       <DependentUpon>SFDatabase.tt</DependentUpon>
     </Compile>
