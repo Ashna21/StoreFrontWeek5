@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "checkout2";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<div id="cartDetails">
+    @{ Html.RenderAction("cartDetails", "Orders", new { _cartId = Session["cartId"] });}
+</div>
+<div id="cartDetails">
+    @{ Html.RenderAction("shippingAddressDetails", "Orders", new { _addressId= Session["shipping"] });}
+</div>
+
+<button id ="checkout" class="btn btn-success" style="float:right; width: 200px; ">Complete Order</button> 
+@section script{
+    <script type="text/javascript">
+        $("document").ready(function () {
+            $("#checkout").click(function () {
+                location.href = "@Url.Action("placeOrder", "Orders", new { cartId = Session["cartId"] })";
+            });
+        });
+
+    </script>
+}

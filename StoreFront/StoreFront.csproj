@@ -458,6 +458,10 @@
     <Content Include="Views\Orders\AddressPartial.cshtml" />
     <Content Include="Views\Orders\checkout.cshtml" />
     <Content Include="Views\Products\ProductAdmin.cshtml" />
+    <Content Include="Views\Orders\checkout2.cshtml" />
+    <Content Include="Views\Orders\shippingAddressDetails.cshtml" />
+    <Content Include="Views\Orders\cartDetails.cshtml" />
+    <Content Include="Views\Orders\thankyou.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

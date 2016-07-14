@@ -68,6 +68,8 @@
         <dd>
             @Html.DisplayFor(model => model.ModifiedBy)
         </dd>
+        @*<dt>@Html.DropDownList("status", new SelectList(Enum.GetValues(SFData.data.Status())), "Set Status", new {@class = "form-control")</dt>*@
+        @*@Html.DropDownListFor(model=>model.Status, new SelectList(Model.Status, "status","status") ,"")*@
 
     </dl>
 

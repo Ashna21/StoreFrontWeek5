@@ -1,69 +1,85 @@
-﻿@model SFData.data.Address
+﻿@model IEnumerable<SFData.data.Address>
 
 @{ 
     Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_Layout.cshtml";
 }
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+</head>
 
+@using (Html.BeginForm("shippingAddress", "Orders", FormMethod.Post))
+{
+foreach (var item in Model)
+{
 <dl class="dl-horizontal">
     <dt>
-        @Html.DisplayNameFor(model=>model.AddressID)
+       @Html.DisplayNameFor(model => model.IsShipping)
     </dt>
     <dd>
-        @Html.DisplayFor(model=>model.AddressID)
-    </dd>
-    <dt>
-        @Html.DisplayNameFor(model => model.UserID)
-    </dt>
-    <dd>
-        @Html.DisplayFor(model => model.UserID)
+        <input name ="selectedAddress" value ="@item.AddressID" type="checkbox"  class="selectAddress"/>
     </dd>
     <dt>
         @Html.DisplayNameFor(model => model.Address1)
     </dt>
     <dd>
-        @Html.DisplayFor(model => model.Address1)
+        @Html.DisplayFor(model => item.Address1)
     </dd>
     <dt>
         @Html.DisplayNameFor(model => model.Address2)
     </dt>
     <dd>
-        @Html.DisplayFor(model => model.Address2)
+        @Html.DisplayFor(model => item.Address2)
     </dd>
     <dt>
         @Html.DisplayNameFor(model => model.Address3)
     </dt>
     <dd>
-        @Html.DisplayFor(model => model.Address3)
+        @Html.DisplayFor(model => item.Address3)
     </dd>
     <dt>
         @Html.DisplayNameFor(model => model.City)
     </dt>
     <dd>
-        @Html.DisplayFor(model => model.City)
+        @Html.DisplayFor(model => item.City)
     </dd>
     <dt>
         @Html.DisplayNameFor(model => model.StateID)
     </dt>
     <dd>
-        @Html.DisplayFor(model => model.StateID)
+        @Html.DisplayFor(model => item.StateID)
     </dd>
     <dt>
         @Html.DisplayNameFor(model => model.ZipCode)
     </dt>
     <dd>
-        @Html.DisplayFor(model => model.ZipCode)
+        @Html.DisplayFor(model => item.ZipCode)
     </dd>
     <dt>
         @Html.DisplayNameFor(model => model.IsBilling)
     </dt>
     <dd>
-        @Html.DisplayFor(model => model.IsBilling)
+        @Html.DisplayFor(model => item.IsBilling)
     </dd>
-    <dt>
-        @Html.DisplayNameFor(model => model.IsShipping)
-    </dt>
-    <dd>
-        @Html.DisplayFor(model => model.IsShipping)
-    </dd>
-
 </dl>
+}
+    <input type="submit" id="checkOut" disabled class="btn btn-success" style="float:right" value="continue to checkout"/>
+}
+
+@section script{
+    <script type="text/javascript">
+        $("document").ready(function () {
+            $(".selectAddress").each(function(i) {
+                $(".selectAddress").click(function () {
+                    if ($(this).is(':checked')) {
+                        $("#checkOut").removeAttr('disabled');
+                    } else {
+                        $("#checkOut").attr('disabled', 'disabled');
+                    }
+                });
+            });
+
+        });
+    </script>
+}

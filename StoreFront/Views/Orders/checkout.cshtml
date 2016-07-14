@@ -5,5 +5,9 @@
 }
 
 <h2>Welcome to Checkout</h2>
-<p>Following are your address details</p>
-@{Html.RenderAction("AddressDetails", "Orders", new { AddressId = Model.AddressID });}
+<p>@Html.ActionLink("Add Address", "AddressForm", "Orders", null, null)</p>
+
+<div id="AddressDetails">
+    @{Html.RenderAction("AddressDetails", "Orders", new { AddressId = Model.AddressID });}
+</div> 
+

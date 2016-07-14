@@ -37,11 +37,11 @@ namespace StoreFront.Controllers
                 file.SaveAs(path);
                 string newPath = "~/images/" + pic;
 
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    file.InputStream.CopyTo(ms);
-                    byte[] array = ms.GetBuffer();
-                }
+                //using (MemoryStream ms = new MemoryStream())
+                //{
+                //    file.InputStream.CopyTo(ms);
+                //    byte[] array = ms.GetBuffer();
+                //}
                 _invrepo.updateProduct(product, oldProductId, newPath);
                 return null;
             }

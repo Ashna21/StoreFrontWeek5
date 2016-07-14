@@ -19,7 +19,7 @@
 {
     <tr id="#row-@item.ProductID">
         <td> @Html.DisplayFor(modelItem => item.ProductName)</td>
-        <td id="num"> @Html.TextBoxFor(modelItem => item.Quantity, new { id = "num" }) <a id="update" href="#">update</a></td>
+        <td class="num"> @Html.TextBoxFor(modelItem => item.Quantity) <a class="update" href="#">update</a></td>
         <td>$ @Html.DisplayFor(modelItem => item.Price)</td>
         <td> @Html.ActionLink("x", "Delete", "ShoppingCarts", new { productId = item.ProductID, cartId = item.ShoppingCartID }, null) </td>
     </tr>
@@ -34,8 +34,8 @@
         </th>
     </tr>
     <tr>
-       <th style="float:right">
-           @Html.ActionLink("Place Order", "placeOrder", "Orders", new { cartId = Session["cartId"] }, null)
+       <th style="float:right; border: medium">
+           @Html.ActionLink("Checkout!", "checkout", "Orders", new { cartId = Session["cartId"] }, null)
        </th>
     </tr>
 </table>
@@ -44,13 +44,13 @@
 @section script{
     <script type="text/javascript">
         $("document").ready(function () {
-            $("#num").change(function () {
-                var quant = $(this).val();
-                $(this).val(quant);
-                $("#update").css("color", "orange");
-                alert("your new quantity is:" + $(this).val(2))
-            });
-
+            $(".num").each(function (i) {
+                $(".update").each(function (i) {
+                    $(".num").change(function () {
+                        $(".update").css("color", "orange");
+                    });
+                })
+            })
         });
     </script>
  }
